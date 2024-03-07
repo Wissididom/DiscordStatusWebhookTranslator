@@ -53,6 +53,21 @@ app.post("/", async (req, res) => {
     discordMessageContent += `Latest Incident Update Status: \`${latestIncidentUpdateStatus}\`\n`;
     discordMessageContent += `Latest Incident Update Updated At: <t:${Math.floor(new Date(latestIncidentUpdateUpdatedAt).getTime() / 1000)}>\n`;
     discordMessageContent += `Latest Incident Update ID: \`${latestIncidentUpdateId}\`\n`;
+    await fetch(`${process.env.DISCORD_WEBHOOK_URL}?wait=true`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: "Discord Status Update",
+        avatar_url:
+          "https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png",
+        content: discordMessageContent,
+        allowed_mentions: { parse: [] }, // Avoid accidental pings
+      }),
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
     res.sendStatus(204);
   }
 });
