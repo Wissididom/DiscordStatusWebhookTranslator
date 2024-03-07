@@ -39,7 +39,9 @@ app.post("/", async (req, res) => {
     let latestIncidentUpdateUpdatedAt =
       notification.incident.incident_updates[0]?.updated_at;
     let latestIncidentUpdateId = notification.incident.incident_updates[0]?.id;
-    let discordMessageContent = `Incident Created At: <t:${Math.floor(new Date(createdAt).getTime() / 1000)}>\n`;
+    let incidentName = notification.incident.name;
+    let discordMessageContent = `Incident \`${incidentName}\`\n`;
+    discordMessageContent += `Incident Created At: <t:${Math.floor(new Date(createdAt).getTime() / 1000)}>\n`;
     discordMessageContent += `Incident Impact: \`${impact}\`\n`;
     discordMessageContent += `Incident Impact Override: \`${impactOverride}\`\n`;
     discordMessageContent += `Incident Monitoring At: ${Math.floor(new Date(monitoringAt).getTime() / 1000)}>\n`;
