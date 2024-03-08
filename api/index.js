@@ -71,6 +71,8 @@ app.post("/", async (req, res) => {
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
     res.sendStatus(204);
+  } else {
+    res.sendStatus(204); // doesn't include incident data. Can be an error or an unhandled event
   }
 });
 
