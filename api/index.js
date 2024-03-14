@@ -61,15 +61,17 @@ app.post("/", async (req, res) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: "Discord Status Update",
+        username: "DC Status Update",
         avatar_url:
           "https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png",
         content: discordMessageContent,
         allowed_mentions: { parse: [] }, // Avoid accidental pings
       }),
     })
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+      .then(async (res) =>
+        console.log(res.status + " - " + JSON.stringify(await res.text())),
+      )
+      .catch((err) => console.error(JSON.stringify(err)));
     res.sendStatus(204);
   }
 });
